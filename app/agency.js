@@ -23,7 +23,6 @@ class Agency {
         
         const hierarchy = agent.getHierarchyByKey(hierKey);
         let agentsCommission = [];
-        let commission = 0;
 
         for (let i = 0; i < hierarchy.length; i++) {
             const planRate = !selectedPlan[i] ? 0 : selectedPlan[i]
