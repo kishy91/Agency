@@ -77,13 +77,19 @@ describe("Agency should throw error if", () => {
     it ("agent is not found by name", () => {
         expect(function () {
             theAgency.calculateAgentCommissions("Jack", "H2", 100000, "B");
-        }).to.throw(Error);
+        }).to.throw(Error, "No agent found for Jack");
     });
 
-    it("plan is not found by key", () => {
+    it("hierarchy is not found by key", () => {
         expect(function () {
             theAgency.calculateAgentCommissions("Bob", "H3", 100000, "B");
-        }).to.throw(Error);
+        }).to.throw(Error, "No such hierarchy H3");
+    });
+
+    it("plan is not found", () => {
+        expect(function () {
+            theAgency.calculateAgentCommissions("Bob", "H2", 100000, "C");
+        }).to.throw(Error, "No plan found for C");
     });
 
 });

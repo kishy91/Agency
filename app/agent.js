@@ -9,26 +9,29 @@ class Agent {
         */
         this.hierarchies = JSON.parse(JSON.stringify(hierarchies));
 
-        this.adjustHierarchies();
-    }
-
-    adjustHierarchies() {
         for (const hier in this.hierarchies) {
-            this.hierarchies[hier].unshift(this.name);
+            this.adjustHierarchies(hier);
         }
     }
 
+    adjustHierarchies(hier) {
+        this.hierarchies[hier].unshift(this.name);
+    }
+
     addHierarchy(key, obj) {
+        if (this.hierarchies[key]) {
+            throw new Error(`Hierarchy ${key} already exists`);
+        }
         const hierObj = JSON.parse(JSON.stringify(obj));
-        hierObj.unshift(this.name);
         this.hierarchies[key] = hierObj;
+        this.adjustHierarchies(key);
     }
 
     removeHierarchy(key) {
         if (this.hierarchies[key]) {
             delete this.hierarchies[key];
         } else {
-            throw new Error(`No such hierarchy, ${key}`);
+            throw new Error(`No such hierarchy ${key}`);
         }
     }
 

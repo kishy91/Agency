@@ -17,11 +17,16 @@ class Agency {
         }
         
         const selectedPlan = this.plans[plan];
-        if (!plan) {
+        if (!selectedPlan) {
             throw new Error(`No plan found for ${plan}`);
         }
         
-        const hierarchy = agent.getHierarchyByKey(hierKey);
+        let hierarchy;
+        try {
+            hierarchy = agent.getHierarchyByKey(hierKey);
+        } catch(err) {
+            throw err;
+        }
         let agentsCommission = [];
 
         for (let i = 0; i < hierarchy.length; i++) {

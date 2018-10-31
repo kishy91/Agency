@@ -53,27 +53,33 @@ describe("Agent Bob should be able to", () => {
     it("remove a hierarchy", () => {
         expect(Object.keys(bobsHierarchies).length).to.equal(2);
         expect(Bob.getAllHierarchies()).to.deep.equal({"H1": ["Bob", "X", "A", "C"], "H2": ["Bob", "A", "X", "D", "Z"]});
+        const h2 = Hierarches["H2"];
+        expect(h2).to.deep.equal(["A", "X", "D", "Z"]);
         Bob.removeHierarchy("H2");
         expect(Object.keys(bobsHierarchies).length).to.equal(1);
         expect(Bob.getHierarchyByKey("H1")).to.deep.equal(["Bob", "X", "A", "C"]);
-        const h2 = Hierarches["H2"];
-        expect(h2).to.deep.equal(["A", "X", "D", "Z"]);
     });
 
 });
 
 describe("Agent should throw error if", () => {
 
-    it ("finding a hierarchy that doesn't exist", () => {
+    it("adding a hierarchy that already exists", () => {
         expect(function () {
-            Bob.getHierarchyByKey("H3"); 
-        }).to.throw(Error);
+            Bob.addHierarchy("H1"); 
+        }).to.throw(Error, "Hierarchy H1 already exists");
     });
 
-    it ("removing a hierarchy that doesn't exist", () => {
+    it("finding a hierarchy that doesn't exist", () => {
+        expect(function () {
+            Bob.getHierarchyByKey("H3"); 
+        }).to.throw(Error, "No such hierarchy H3");
+    });
+
+    it("removing a hierarchy that doesn't exist", () => {
         expect(function () {
             Bob.removeHierarchy("H3"); 
-        }).to.throw(Error);
+        }).to.throw(Error, "No such hierarchy H3");
     });
 
 });
