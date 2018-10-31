@@ -15,13 +15,13 @@ npm install
 To generate log file:
 
 ```
-2. npm run start
+npm run start
 ```
 
 To run test suite (tests passed will appear on terminal):
 
 ```
-3. npm run test
+npm run test
 ```
 
 ## Use Cases
